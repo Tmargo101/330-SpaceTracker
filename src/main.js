@@ -6,7 +6,8 @@ let sats;
 let endpoints = {
 	getAllStarlinkSats: "https://api.spacexdata.com/v4/starlink",
 	getAllPastLaunches: "https://api.spacexdata.com/v4/launches/past",
-	getAllCores: "https://api.spacexdata.com/v4/cores"
+	getAllCores: "https://api.spacexdata.com/v4/cores",
+	getCapsule: ""
 
 }
 
@@ -56,6 +57,26 @@ let setupUI = () => {
 			}
 		}
 		ajax.getData(endpoints.getAllPastLaunches, displayLaunchHistory);
+	}
+	
+	cargoDragonHistoryNav.onclick = () => {
+		let displayLaunchHistory = (jsonString) => {
+			let allLaunches = JSON.parse(jsonString);
+			let headerColumns = ["Launch Name", "Success", "Launch Details"];
+			drawDatabaseTable(headerColumns);	
+			for (let launch of allLaunches) {
+				if (launch.capsules[0]) {
+					
+					drawDatabaseRow([
+						launch.name,
+						launch.success,
+						launch.details
+					])
+				}
+			}
+		}
+		ajax.getData(endpoints.getAllPastLaunches, displayLaunchHistory);
+
 	}
 
 };

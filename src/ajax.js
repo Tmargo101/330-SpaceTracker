@@ -13,4 +13,6 @@ let getData = (url, callbackRef) => {
 	xhr.send();
 };
 
+
+
 export { getData };
