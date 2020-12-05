@@ -1,4 +1,4 @@
-let downloadFile = (url, callbackRef) => {
+let getData = (url, callbackRef) => {
 	const xhr = new XMLHttpRequest();
 
 	xhr.onerror = e => console.log('xhr error');
@@ -13,4 +13,4 @@ let downloadFile = (url, callbackRef) => {
 	xhr.send();
 };
 
-export { downloadFile };
+export { getData };

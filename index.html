@@ -18,16 +18,52 @@
 		<script src="./src/loader.js" type="module"></script>
 	</head>
 	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">SpaceX Tracker</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">About</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Flown Missions</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#" id="falcon1HistoryNav">Falcon 1</a>
+								<a class="dropdown-item" href="#" id="falcon9HistoryNav">Falcon 9</a>
+								<a class="dropdown-item" href="#">Cargo Dragon</a>
+								<a class="dropdown-item" href="#">Crew Dragon</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Current Fleet</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Falcon 9 Boosters</a>
+								<a class="dropdown-item" href="#">Dragon Capsules</a>
+								<a class="dropdown-item" href="#">Marine Fleet</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" id="starlinkNavItem">Starlink</a>
+						</li>
+
+					</ul>
+			  </div>
+			</nav>			
 		<div class="container-fluid" id="main">
-			<header class="row" id="headerDiv">
-				<div class="col-12 jumbotron text-center">
+			<header class="row h-10" id="headerDiv">
+				<div class="col-12 text-center">
 					<h1>SpaceX Tracker</h1>
 					<p>Created Dec 2020</p>
 				</div>
 			</header>
-			<div class="row">
+			<div class="row h-80">
 				<section class="col-lg-6" id="databaseDiv">
-					<h2 class="text-center">Launch Data</h2>
 				</section>
 				<section class="col-lg-6" id="starlinkMapDiv">
 					<h2 class="text-center">Map</h2>
@@ -37,7 +73,8 @@
 					</div>
 				</section>
 			</div>
-			<footer id="footerDiv">
+			<footer class="row h-10">
+				
 			</footer>
 		</div>
  		
