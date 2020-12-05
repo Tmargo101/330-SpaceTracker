@@ -2,11 +2,16 @@ import * as map from './map.js';
 import * as ajax from './ajax.js';
 
 let sats;
+let boosters;
+let launches;
+let capsules;
+let dragons;
+
 
 let endpoints = {
-	getAllStarlinkSats: "https://api.spacexdata.com/v4/starlink",
-	getAllPastLaunches: "https://api.spacexdata.com/v4/launches/past",
-	getAllCores: "https://api.spacexdata.com/v4/cores",
+	getAllStarlinkSats: "https://api.spacexdata.com/v3/starlink",
+	getAllPastLaunches: "https://api.spacexdata.com/v3/launches/past",
+	getAllCores: "https://api.spacexdata.com/v3/cores",
 	getCapsule: ""
 
 }
@@ -22,12 +27,13 @@ let setupUI = () => {
 		if (!sats) {
 			loadSats();
 		}
-	}
+};
+
 	falcon1HistoryNav.onclick = () => {
 		let displayLaunchHistory = (jsonString) => {
 		let allLaunches = JSON.parse(jsonString);
 		let headerColumns = ["Launch Name", "Success", "Launch Details"];
-		drawDatabaseTable(headerColumns);	
+		drawDatabaseTable(headerColumns);
 		for (let launch of allLaunches) {
 			if (launch.flight_number < 6) {
 				drawDatabaseRow([
@@ -40,33 +46,33 @@ let setupUI = () => {
 		}
 		ajax.getData(endpoints.getAllPastLaunches, displayLaunchHistory);
 	}
-	
+
 	falcon9HistoryNav.onclick = () => {
 		let displayLaunchHistory = (jsonString) => {
 			let allLaunches = JSON.parse(jsonString);
-			let headerColumns = ["Launch Name", "Success", "Launch Details"];
-			drawDatabaseTable(headerColumns);	
+			let headerColumns = ["Launch Name", "Success", "Launch Details", "Booster"];
+			drawDatabaseTable(headerColumns);
 			for (let launch of allLaunches) {
-				if (launch.flight_number > 5) {
-					drawDatabaseRow([
-						launch.name,
-						launch.success,
-						launch.details
-					])
-				}
+				drawDatabaseRow([
+					`<a href="#">${launch.mission_name}</a>`,
+					launch.launch_success,
+					launch.details,
+					`<a href="#">${launch.rocket.first_stage.cores[0].core_serial}</a>`
+				])
+
 			}
 		}
-		ajax.getData(endpoints.getAllPastLaunches, displayLaunchHistory);
+		ajax.getData(endpoints.getAllPastLaunches+"/?rocket_id=falcon9", displayLaunchHistory);
 	}
-	
+
 	cargoDragonHistoryNav.onclick = () => {
 		let displayLaunchHistory = (jsonString) => {
 			let allLaunches = JSON.parse(jsonString);
 			let headerColumns = ["Launch Name", "Success", "Launch Details"];
-			drawDatabaseTable(headerColumns);	
+			drawDatabaseTable(headerColumns);
 			for (let launch of allLaunches) {
 				if (launch.capsules[0]) {
-					
+
 					drawDatabaseRow([
 						launch.name,
 						launch.success,
@@ -83,39 +89,43 @@ let setupUI = () => {
 
 let drawDatabaseTable = (inColumns) => {
 	let thisTable = `
-	<table id="currentDatabaseDivTable" class="table">
+	<table id="currentDatabaseDivTable" class="table table-responsive" data-sticky-header="true" style="overflow-y:scroll; max-height: 80vh;">
 		<thead class="thead-dark">
 			<tr>`;
-	
+
 	for (let column of inColumns) {
 		thisTable += `
 		<th>${column}</th>`;
 	}
-		
+
 	thisTable +=`
 			</tr>
 		</thead>
 		<tbody>
 		</tbody>
 	</table>
+	</div>
 	`;
 	databaseDiv.innerHTML = thisTable;
-}
+};
 
 let drawDatabaseRow = (inColumns, inClass = 'table-light') => {
 	if (currentDatabaseDivTable) {
 		let thisRow = `<tr class="${inClass}">`
 		for (let column of inColumns) {
-			if (column) {
+			if (column != null) {
 				thisRow += `<td>${column}</td>`
 			} else {
 				thisRow += `<td>No Information Provided</td>`
 			}
 		}
 		thisRow += `</tr>`
-		
 		currentDatabaseDivTable.innerHTML += thisRow;
 	}
+}
+
+let drawPopup = () => {
+
 }
 
 let loadSats = () => {

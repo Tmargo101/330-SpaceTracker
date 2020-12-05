@@ -7,12 +7,11 @@ let getData = (url, callbackRef) => {
 		const jsonString = e.target.response;
 		callbackRef(jsonString);
 	};
-	
+
 	xhr.open("GET", url);
-	
+
 	xhr.send();
 };
-
 
 
 export { getData };
