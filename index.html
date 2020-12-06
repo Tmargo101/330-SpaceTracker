@@ -35,9 +35,9 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Flown Missions</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#" id="falcon1HistoryNav">Falcon 1</a>
-								<a class="dropdown-item" href="#" id="falcon9HistoryNav">Falcon 9</a>
-								<a class="dropdown-item" href="#" id="cargoDragonHistoryNav">Cargo Dragon</a>
+								<a class="dropdown-item falcon1HistoryNav" href="#" >Falcon 1</a>
+								<a class="dropdown-item falcon9HistoryNav" href="#" >Falcon 9</a>
+								<a class="dropdown-item cargoDragonHistoryNav" href="#" >Cargo Dragon</a>
 								<a class="dropdown-item" href="#">Crew Dragon</a>
 							</div>
 						</li>
@@ -64,7 +64,16 @@
 				</div>
 			</header>
 			<div class="row h-80">
-				<section class="col-lg-6" id="databaseDiv">
+				<section class="col-lg-6">
+					<h2 class="text-center">Mission Database</h2>
+					<div id="databaseControls">
+						<form class="form-inline text-center">
+					      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchField">
+					      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					    </form>
+					</div>
+					<div id="databaseDiv">
+					</div>
 				</section>
 				<section class="col-lg-6" id="starlinkMapDiv">
 					<h2 class="text-center">Map</h2>
@@ -77,27 +86,6 @@
 			<footer class="row h-10">
 
 			</footer>
-			<!-- Start Model -->
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			  <div class="modal-dialog modal-dialog-centered" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        ...
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			<!-- End Model -->
 		</div>
 
 	</body>
