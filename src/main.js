@@ -8,7 +8,7 @@ let currentState = {
 
 };
 let endpoints = {
-	getAllStarlinkSats: "https://api.spacexdata.com/v3/starlink",
+	getAllStarlinkSats: "https://api.spacexdata.com/v4/starlink",
 	getAllPastLaunches: "https://api.spacexdata.com/v3/launches/past",
 	getAllCores: "https://api.spacexdata.com/v3/cores",
 	getCapsule: ""
@@ -28,7 +28,6 @@ let init = () => {
 
 	map.initMap();
 	map.addMarkersToMap();
-	drawDatabaseHome();
 	setupUI();
 };
 
@@ -49,9 +48,9 @@ let setupUI = () => {
 			loadSats();
 		}
 	};
-	
-	homeButton.onclick = () => {
-		drawDatabaseHome();
+		
+	databaseBackButton.onclick = () => {
+		divFlip("databaseDiv", "databaseHomeDiv");
 	}
 
 	falcon1HistoryNav.onclick = () => {
@@ -69,6 +68,7 @@ let setupUI = () => {
 				],launch)
 			}
 		}
+		divFlip("databaseHomeDiv", "databaseDiv");
 		ajax.getData(endpoints.getAllPastLaunches + "/?rocket_id=falcon1", displayLaunchHistory);
 	}
 
@@ -89,6 +89,7 @@ let setupUI = () => {
 				],launch);
 			}
 		}
+		divFlip("databaseHomeDiv", "databaseDiv");
 		ajax.getData(endpoints.getAllPastLaunches+"/?rocket_id=falcon9", displayLaunchHistory);
 	}
 
@@ -106,6 +107,7 @@ let setupUI = () => {
 				],launch)
 			}
 		}
+		divFlip("databaseHomeDiv", "databaseDiv");
 		ajax.getData(endpoints.getAllPastLaunches+"/?rocket_id=falconheavy", displayLaunchHistory);
 	}
 
@@ -132,8 +134,6 @@ let setupUI = () => {
 };
 
 let drawDatabaseTable = (inColumns) => {
-	databaseHomeDiv.style.display = "none";
-
 	let thisTable = `
 	<table id="currentDatabaseDivTable" class="table table-responsive" style="overflow-y:scroll; max-height: 80vh;">
 		<thead class="thead-dark">
@@ -180,7 +180,9 @@ let drawDatabaseRow = (inColumns, thisLaunch = {}, inClass = 'table-light') => {
 				</button>
 			  </div>
 			  <div class="modal-body">
-				<p>${thisLaunch.details}</p>
+				<p>Details: ${thisLaunch.details}</p>
+				<a href="${thisLaunch.links.video_link}">Link to Launch Video</a>
+				
 			  </div>
 			</div>
 		  </div>
@@ -191,30 +193,18 @@ let drawDatabaseRow = (inColumns, thisLaunch = {}, inClass = 'table-light') => {
 	}
 }
 
-let drawPopup = () => {
-
-}
-
-let drawDatabaseHome = () => {
-// 	databaseDiv.innerHTML = `
-// 	<div class="text-center">
-// 		<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
-// 		<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
-// 		<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>
-// 		<button class="m-3 btn btn-outline-primary btn-lg" id="dragonHistoryNav">Dragon Capsule Launches</button><br>
+let divFlip = (divToHide, divToShow) => {
+	console.log(divToHide);
+	document.querySelector(`#${divToHide}`).style.display = "none";
+	document.querySelector(`#${divToShow}`).style.display = "";
+// 	if (div1.style.display == "none"){
+// 		div2.style.display = "none";
+// 		div1.style.display = "";
+// 	} else if (div2.style.display == "none") {
+// 		div1.style.display = "none";
+// 		div2.style.display = "";
 // 
-// 	</div>
-// 	<div class="text-center mt-5">
-// 		<h3 class="mb-3">Next Launch</h3>
-// 		<p>ARABSAT</p>
-// 		<p>Nov 20</p>
-// 	</div>
-// 	<div class="text-center mt-5">
-// 		<h3 class="mb-3">Last Launch</h3>
-// 		<p>Starlink</p>
-// 		<p>Nov 10</p>
-// 	</div>
-// 	`
+// 	}
 };
 
 let drawDatabseControls = () => {

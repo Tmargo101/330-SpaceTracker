@@ -27,3 +27,5 @@ Right panel: Map / Video
 
 
 - Middle of night note: hacky way to display more info about an item: call the entire block of example bootstrap button popup code in each table row instead of populating a cfunction onclick.
+
+- Middof ofnight note 2: got it working but not sure popup is right way to do this.  HOw will the map display loaded data if it's obscured behind the model?  find a way to have model onscreen WHILE INTERACTING WITH THE MPA ON THE RIGHT
