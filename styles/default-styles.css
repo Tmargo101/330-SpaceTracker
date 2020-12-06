@@ -11,7 +11,7 @@ body {
 }
 
 #starlinkMapDiv {
-	background-color: orange;
+	/* background-color: orange; */
 }
 
 #footerDiv {
@@ -43,6 +43,16 @@ body {
 	height: 15px;
 	border-radius: 50%;
 	cursor: pointer;
+}
+
+.launch {
+	background-image: url('../images/launch.png');
+	background-size: cover;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	cursor: pointer;
+
 }
 	
 

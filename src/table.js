@@ -1,5 +1,6 @@
 import * as utilities from './utilities.js';
 import * as details from './details.js';
+import * as map from './map.js';
 
 let drawDatabaseTable = (inColumns) => {
 	let thisTable = `
@@ -27,6 +28,7 @@ let drawDatabaseTable = (inColumns) => {
 		<li class="breadcrumb-item active" aria-current="page">Launches</li>
 		`;
 	databaseHomeButton.onclick = () => {
+		map.resetPois();
 		databaseBreadcrumb.innerHTML = `
 		<li class="breadcrumb-item active" aria-current="page">Home</li>
 		`;

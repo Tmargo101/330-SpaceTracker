@@ -20,7 +20,6 @@ let endpoints = {
 let init = () => {
 	storage.getSavedState();
 	map.initMap();
-	map.addMarkersToMap();
 	setupUI();
 };
 
@@ -53,6 +52,7 @@ let setupUI = () => {
 
 let getFalcon1Launches = () => {
 	utilities.displayLoading('#databaseDiv');
+	map.resetPois();
 	let displayLaunchHistory = (jsonString) => {
 		let allLaunches = JSON.parse(jsonString);
 		let headerColumns = ["Launch Name", "Success", "Launch Details"];
@@ -64,9 +64,14 @@ let getFalcon1Launches = () => {
 				launch.details,
 				
 			],launch)
-			
-			map.addLaunchLocation(launch, "poi");
+			map.countLaunchLocations(launch);
 		}
+		for (let [location, launchNumber] of Object.entries(map.launchLocations)) {
+			if (launchNumber > 0) {
+				map.addGeneralLaunchLocation(location, launchNumber, "launch");
+			}
+		}
+
 		table.addLinksToRow();
 		
 		// Plot launch locations on map
@@ -79,6 +84,8 @@ let getFalcon1Launches = () => {
 
 let getFalcon9Launches = () => {
 	utilities.displayLoading('#databaseDiv');
+	map.resetPois();
+
 	let displayLaunchHistory = (jsonString) => {
 		let allLaunches = JSON.parse(jsonString);
 		let headerColumns = ["Launch Name", "Success", "Launch Details", "Booster", "Booster Flights", "Recovered"];
@@ -94,9 +101,14 @@ let getFalcon9Launches = () => {
 				//`<a href="#">${launch.rocket.first_stage.cores[0].core_serial}</a>`,
 
 			],launch);
-			map.addLaunchLocation(launch, "poi");
-
+			map.countLaunchLocations(launch);
 		}
+		for (let [location, launchNumber] of Object.entries(map.launchLocations)) {
+			if (launchNumber > 0) {
+				map.addGeneralLaunchLocation(location, launchNumber, "launch");
+			}
+		}
+
 		table.addLinksToRow();
 	}
 	utilities.hideDiv("databaseHomeDiv");
@@ -106,6 +118,8 @@ let getFalcon9Launches = () => {
 
 let getFalconHeavyLaunches = () => {
 	utilities.displayLoading('#databaseDiv');
+	map.resetPois();
+	
 	let displayLaunchHistory = (jsonString) => {
 		let allLaunches = JSON.parse(jsonString);
 		let headerColumns = ["Launch Name", "Success", "Launch Details"];
@@ -116,8 +130,12 @@ let getFalconHeavyLaunches = () => {
 				launch.launch_success,
 				launch.details
 			],launch);
-			map.addLaunchLocation(launch, "poi");
-
+			map.countLaunchLocations(launch);
+		}
+		for (let [location, launchNumber] of Object.entries(map.launchLocations)) {
+			if (launchNumber > 0) {
+				map.addGeneralLaunchLocation(location, launchNumber, "launch");
+			}
 		}
 		table.addLinksToRow();
 	}
