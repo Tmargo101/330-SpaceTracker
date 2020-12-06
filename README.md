@@ -24,3 +24,6 @@ Right panel: Map / Video
         - draw a line between launch / landing & show distance between them?
         - Show photos from the mission or the official spaceX video (video in popup?)
 - Dark theme?
+
+
+- Middle of night note: hacky way to display more info about an item: call the entire block of example bootstrap button popup code in each table row instead of populating a cfunction onclick.

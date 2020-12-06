@@ -49,6 +49,10 @@ let setupUI = () => {
 			loadSats();
 		}
 	};
+	
+	homeButton.onclick = () => {
+		drawDatabaseHome();
+	}
 
 	falcon1HistoryNav.onclick = () => {
 		displayLoading('#databaseDiv');
@@ -58,10 +62,11 @@ let setupUI = () => {
 			drawDatabaseTable(headerColumns);
 			for (let launch of allLaunches) {
 				drawDatabaseRow([
-					`<a href="#">${launch.mission_name}</a>`,
+`<a href="#" data-toggle="modal" data-target="#flightDetailsDiv${launch.flight_number}">${launch.mission_name}</a>`,
 					launch.launch_success,
-					launch.details
-				])
+					launch.details,
+					
+				],launch)
 			}
 		}
 		ajax.getData(endpoints.getAllPastLaunches + "/?rocket_id=falcon1", displayLaunchHistory);
@@ -75,13 +80,13 @@ let setupUI = () => {
 			drawDatabaseTable(headerColumns);
 			for (let launch of allLaunches) {
 				drawDatabaseRow([
-					`<a href="#">${launch.mission_name}</a>`,
+					`<a href="#" data-toggle="modal" data-target="#flightDetailsDiv${launch.flight_number}">${launch.mission_name}</a>`,
 					launch.launch_success,
 					launch.details,
-					`<a href="#">${launch.rocket.first_stage.cores[0].core_serial}</a>`
+					launch.rocket.first_stage.cores[0].core_serial
+					//`<a href="#">${launch.rocket.first_stage.cores[0].core_serial}</a>`,
 
-				])
-
+				],launch);
 			}
 		}
 		ajax.getData(endpoints.getAllPastLaunches+"/?rocket_id=falcon9", displayLaunchHistory);
@@ -95,10 +100,10 @@ let setupUI = () => {
 			drawDatabaseTable(headerColumns);
 			for (let launch of allLaunches) {
 				drawDatabaseRow([
-					launch.mission_name,
+					`<a href="#" data-toggle="modal" data-target="#flightDetailsDiv${launch.flight_number}">${launch.mission_name}</a>`,
 					launch.launch_success,
 					launch.details
-				])
+				],launch)
 			}
 		}
 		ajax.getData(endpoints.getAllPastLaunches+"/?rocket_id=falconheavy", displayLaunchHistory);
@@ -127,6 +132,8 @@ let setupUI = () => {
 };
 
 let drawDatabaseTable = (inColumns) => {
+	databaseHomeDiv.style.display = "none";
+
 	let thisTable = `
 	<table id="currentDatabaseDivTable" class="table table-responsive" style="overflow-y:scroll; max-height: 80vh;">
 		<thead class="thead-dark">
@@ -149,17 +156,37 @@ let drawDatabaseTable = (inColumns) => {
 	databaseDiv.innerHTML = thisTable;
 };
 
-let drawDatabaseRow = (inColumns, inClass = 'table-light') => {
+let drawDatabaseRow = (inColumns, thisLaunch = {}, inClass = 'table-light') => {
+	console.log(thisLaunch);
 	if (currentDatabaseDivTable) {
 		let thisRow = `<tr class="${inClass}">`
 		for (let column of inColumns) {
 			if (column != null) {
-				thisRow += `<td>${column}</td>`
+				thisRow += `<td>${column}</td>				
+				`
 			} else {
-				thisRow += `<td>No Information Provided</td>`
+			thisRow += `<td>No Information Provided</td>`
 			}
 		}
-		thisRow += `</tr>`
+		thisRow += `</tr>
+		<!-- Modal -->
+		<div class="modal fade" id="flightDetailsDiv${thisLaunch.flight_number}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">${thisLaunch.mission_name}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<p>${thisLaunch.details}</p>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		`
+		console.log(thisRow);
 		document.querySelector("tbody").innerHTML += thisRow;
 	}
 }
@@ -169,25 +196,25 @@ let drawPopup = () => {
 }
 
 let drawDatabaseHome = () => {
-	databaseDiv.innerHTML = `
-	<div class="text-center">
-		<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
-		<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
-		<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>
-		<button class="m-3 btn btn-outline-primary btn-lg" id="dragonHistoryNav">Dragon Capsule Launches</button><br>
-
-	</div>
-	<div class="text-center mt-5">
-		<h3 class="mb-3">Next Launch</h3>
-		<p>ARABSAT</p>
-		<p>Nov 20</p>
-	</div>
-	<div class="text-center mt-5">
-		<h3 class="mb-3">Last Launch</h3>
-		<p>Starlink</p>
-		<p>Nov 10</p>
-	</div>
-	`
+// 	databaseDiv.innerHTML = `
+// 	<div class="text-center">
+// 		<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
+// 		<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
+// 		<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>
+// 		<button class="m-3 btn btn-outline-primary btn-lg" id="dragonHistoryNav">Dragon Capsule Launches</button><br>
+// 
+// 	</div>
+// 	<div class="text-center mt-5">
+// 		<h3 class="mb-3">Next Launch</h3>
+// 		<p>ARABSAT</p>
+// 		<p>Nov 20</p>
+// 	</div>
+// 	<div class="text-center mt-5">
+// 		<h3 class="mb-3">Last Launch</h3>
+// 		<p>Starlink</p>
+// 		<p>Nov 10</p>
+// 	</div>
+// 	`
 };
 
 let drawDatabseControls = () => {
