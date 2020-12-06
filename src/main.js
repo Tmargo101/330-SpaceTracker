@@ -50,19 +50,19 @@ let setupUI = () => {
 		}
 	};
 		
-	databaseHomeButton.onclick = () => {
-		hideDiv("databaseDiv");
-		
-		showDiv("databaseHomeDiv");
-	}
+	// databaseHomeButton.onclick = () => {
+	// 	hideDiv("databaseDiv");
+	// 	
+	// 	showDiv("databaseHomeDiv");
+	// }
 	
-	databaseBackButton.onclick = () => {
-		hideDiv("databaseDetailsView");
-		hideDiv("databaseHomeDiv");
-		
-		showDiv("databaseDiv");
-
-	}
+// 	databaseBackButton.onclick = () => {
+// 		hideDiv("databaseDetailsView");
+// 		hideDiv("databaseHomeDiv");
+// 		
+// 		showDiv("databaseDiv");
+// 
+// 	}
 
 
 	falcon1HistoryNav.onclick = () => {
@@ -82,7 +82,6 @@ let setupUI = () => {
 			let detailsLinks = document.querySelectorAll('.getFlightDetails');
 			detailsLinks.forEach(link =>{
 				link.onclick = (e) => {
-					console.log(e.target.dataset.value);
 					drawDetailsView(e.target.dataset.value);
 				}
 			});
@@ -113,7 +112,6 @@ let setupUI = () => {
 			let detailsLinks = document.querySelectorAll('.getFlightDetails');
 			detailsLinks.forEach(link =>{
 				link.onclick = (e) => {
-					console.log(e.target.dataset.value);
 					drawDetailsView(e.target.dataset.value);
 				}
 			});
@@ -140,7 +138,6 @@ let setupUI = () => {
 			let detailsLinks = document.querySelectorAll('.getFlightDetails');
 			detailsLinks.forEach(link =>{
 				link.onclick = (e) => {
-					console.log(e.target.dataset.value);
 					drawDetailsView(e.target.dataset.value);
 				}
 			});
@@ -149,27 +146,6 @@ let setupUI = () => {
 		hideDiv("databaseHomeDiv");
 		showDiv("databaseDiv");
 		ajax.getData(endpoints.getAllPastLaunches+"/?rocket_id=falconheavy", displayLaunchHistory);
-	}
-
-
-	dragonHistoryNav.onclick = () => {
-		displayLoading('#databaseDiv');
-		let displayLaunchHistory = (jsonString) => {
-			let allLaunches = JSON.parse(jsonString);
-			let headerColumns = ["Launch Name", "Success", "Launch Details"];
-			drawDatabaseTable(headerColumns);
-			for (let launch of allLaunches) {
-				if (launch.capsules[0]) {
-
-					drawDatabaseRow([
-						launch.mission_name,
-						launch.launch_success,
-						launch.details
-					])
-				}
-			}
-		}
-		ajax.getData(endpoints.getAllPastLaunches, displayLaunchHistory);
 	}
 };
 
@@ -194,10 +170,22 @@ let drawDatabaseTable = (inColumns) => {
 	</div>
 	`;
 	databaseDiv.innerHTML = thisTable;
+	databaseBreadcrumb.innerHTML = `
+		<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Launches</li>
+		`;
+	databaseHomeButton.onclick = () => {
+		databaseBreadcrumb.innerHTML = `
+		<li class="breadcrumb-item active" aria-current="page">Home</li>
+		`;
+		hideDiv("databaseDetailsView")
+		hideDiv("databaseDiv");
+		
+		showDiv("databaseHomeDiv");
+	}
 };
 
 let drawDatabaseRow = (inColumns, thisLaunch = {}, inClass = 'table-light') => {
-	console.log(thisLaunch);
 	if (currentDatabaseDivTable) {
 		let thisRow = `<tr class="${inClass}">`
 		for (let column of inColumns) {
@@ -228,7 +216,6 @@ let drawDatabaseRow = (inColumns, thisLaunch = {}, inClass = 'table-light') => {
 		//   </div>
 		// </div>
 		// `
-		console.log(thisRow);
 		document.querySelector("tbody").innerHTML += thisRow;
 	}
 }
@@ -258,13 +245,52 @@ let drawDetailsView = (launchNumber) => {
 	
 	let callback = (jsonString) => {
 		let launch = JSON.parse(jsonString);
-		console.log(launch);
 		let thisDetailsView = `
 		<div id="#thisDetailsView">
 			<p>${launch.mission_name}</p>
 		</div>
 		`;
 		document.querySelector("#databaseDetailsView").innerHTML += thisDetailsView;
+		databaseBreadcrumb.innerHTML = `
+		<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
+		<li class="breadcrumb-item"><a href="#" id="databaseBackButton">Launches</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Details</li>
+		`;
+		
+		databaseHomeButton.onclick = () => {
+			console.log("Go Home Pressed");
+
+			databaseBreadcrumb.innerHTML = `
+			<li class="breadcrumb-item active" aria-current="page">Home</li>
+			`;
+			hideDiv("databaseDetailsView")
+			hideDiv("databaseDiv");
+			showDiv("databaseHomeDiv");
+		};
+		
+		databaseBackButton.onclick = () => {
+			databaseBreadcrumb.innerHTML = `
+			<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Launches</li>
+			`;
+			hideDiv("databaseDetailsView");		
+			hideDiv("databaseHomeDiv");
+	
+			showDiv("databaseDiv");
+			
+			databaseHomeButton.onclick = () => {
+				console.log("Go Home Pressed");
+			
+				databaseBreadcrumb.innerHTML = `
+				<li class="breadcrumb-item active" aria-current="page">Home</li>
+				`;
+				hideDiv("databaseDetailsView")
+				hideDiv("databaseDiv");
+				showDiv("databaseHomeDiv");
+			};
+		};
+
+
 	};
 	ajax.getData(endpoints.getOneLaunch+launchNumber, callback);
 };
@@ -273,7 +299,7 @@ let loadSats = () => {
 	const url = endpoints.getAllStarlinkSats;
 	let poiLoaded = (jsonString) => {
 		sats = JSON.parse(jsonString);
-		console.log(sats);
+		// console.log(sats);
 
 		for (let starlink of sats) {
 			map.addMarker(starlink, "poi");

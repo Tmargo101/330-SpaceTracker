@@ -71,16 +71,23 @@
 					      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchField">
 					      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					    </form>
-						<button class="btn btn-outline-secondary" id="databaseHomeButton">Home</button>
-						<button class="btn btn-outline-secondary" id="databaseBackButton">Back to Results</button>
+						<!-- <button class="btn btn-outline-secondary" id="databaseHomeButton">Home</button> -->
+						<!-- <button class="btn btn-outline-secondary" id="databaseBackButton">Back to Results</button> -->
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb" id="databaseBreadcrumb">
+								<li class="breadcrumb-item active" aria-current="page">Home</li>
+								<!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="#">Library</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
+							</ol>
+						</nav>
+							
 					</div>
 					<div id="databaseHomeDiv">
 						<div class="text-center">
 							<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
 							<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
-							<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>
-							<button class="m-3 btn btn-outline-primary btn-lg" id="dragonHistoryNav">Dragon Capsule Launches</button><br>
-					
+							<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>					
 						</div>
 						<div class="text-center mt-5">
 							<h3 class="mb-3">Next Launch</h3>
