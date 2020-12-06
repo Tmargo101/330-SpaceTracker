@@ -4,7 +4,7 @@ import * as map from './map.js';
 
 let drawDatabaseTable = (inColumns) => {
 	let thisTable = `
-	<table id="currentDatabaseDivTable" class="table table-responsive" style="overflow-y:scroll; max-height: 80vh;">
+	<table id="currentDatabaseDivTable" class="table table-responsive" style="overflow-y:scroll; max-height: 60vh;">
 		<thead class="thead-dark">
 			<tr>`;
 

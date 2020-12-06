@@ -13,7 +13,8 @@ let endpoints = {
 	getAllPastLaunches: "https://api.spacexdata.com/v3/launches/past",
 	getOneLaunch: "https://api.spacexdata.com/v3/launches/",
 	getAllCores: "https://api.spacexdata.com/v3/cores",
-	getCapsule: ""
+	getLastLaunch: "https://api.spacexdata.com/v3/launches/latest",
+	getNextLaunch: "https://api.spacexdata.com/v3/launches/next"
 }
 
 
@@ -21,6 +22,8 @@ let init = () => {
 	storage.getSavedState();
 	map.initMap();
 	setupUI();
+	getLastLaunch();
+	getNextLaunch();
 };
 
 
@@ -145,12 +148,28 @@ let getFalconHeavyLaunches = () => {
 
 }
 
+let getNextLaunch = () => {
+	let callback = (jsonString) => {
+		let launch = JSON.parse(jsonString);
+		nextLaunchHomeDiv.innerHTML = `
+		<h5>${launch.mission_name}</h5>
+		`;
+		
+		
+	};
+	ajax.getData(endpoints.getNextLaunch, callback)	
+}
 
-let drawDatabseControls = () => {
-	databaseControls.innerHTML = `
-	<button>
-	`
-};
+let getLastLaunch = () => {
+	let callback = (jsonString) => {
+		let launch = JSON.parse(jsonString);
+		lastLaunchHomeDiv.innerHTML = `
+		<h5>${launch.mission_name}</h5>
+		`;
+
+	};
+	ajax.getData(endpoints.getLastLaunch, callback)	
+}
 
 
 let loadSats = () => {

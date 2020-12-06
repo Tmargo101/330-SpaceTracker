@@ -2,28 +2,9 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
-/* // Desktop Grid */
-  
-
-#databaseDiv {
-	/* background-color: aqua; */
-}
-
-#starlinkMapDiv {
-	/* background-color: orange; */
-}
-
-#footerDiv {
-	background-color: purple;
-} 
-
-/* // End Desktop Grid */
-
-
 #map {
 	width: 100%;
-	height: 80vh;
+	height: 70vh;
 	margin-right: 10px;
 }
 
@@ -87,7 +68,3 @@ body {
 	color: #777;
 	background-color: hsl(195, 100%, 60%);
 } */
-
-.poi {
-	
-}

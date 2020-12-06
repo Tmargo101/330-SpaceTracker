@@ -13,8 +13,8 @@ let initMap = () => {
 	map = new mapboxgl.Map({
 		container: 'map',
 		style: 'mapbox://styles/mapbox/light-v10',
-		center: [-77.67454147338866, 43.08484339838443],
-		zoom: 3,
+		center: [-120.67454147338866, 30.08484339838443],
+		zoom: 2,
 	});
 
 };

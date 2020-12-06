@@ -32,67 +32,54 @@
 						<li class="nav-item">
 							<a class="nav-link" href="#">About</a>
 						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Flown Missions</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item falcon1HistoryNav" href="#" >Falcon 1</a>
-								<a class="dropdown-item falcon9HistoryNav" href="#" >Falcon 9</a>
-								<a class="dropdown-item cargoDragonHistoryNav" href="#" >Cargo Dragon</a>
-								<a class="dropdown-item" href="#">Crew Dragon</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Current Fleet</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Falcon 9 Boosters</a>
-								<a class="dropdown-item" href="#">Dragon Capsules</a>
-								<a class="dropdown-item" href="#">Marine Fleet</a>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#" id="starlinkNavItem">Starlink</a>
-						</li>
-
 					</ul>
 			  </div>
 			</nav>
 		<div class="container-fluid" id="main">
 			<header class="row h-10" id="headerDiv">
-				<div class="col-12 text-center">
-					<h1>SpaceX Tracker</h1>
-					<p>Created Dec 2020</p>
+				<div class="col-12 text-center m-3">
+					<!-- <h1>SpaceX Tracker</h1>
+					<p>Created Dec 2020</p> -->
 				</div>
 			</header>
 			<div class="row h-80">
 				<section class="col-lg-6">
 					<h2 class="text-center">Mission Database</h2>
-					<div id="databaseControls">
-						<form class="form-inline text-center">
-					      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchField">
-					      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-					    </form>
+					<div id="breadcrumbDiv">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb" id="databaseBreadcrumb">
 								<li class="breadcrumb-item active" aria-current="page">Home</li>
 							</ol>
 						</nav>
-							
+					</div>
+
+					<div class='mb-2 black' id="databaseControls">
+						<form class="form-inline text-center">
+					      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchField">
+					      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+						  <button class="ml-5 btn btn-outline-primary">button</button>					
+						  <button class="ml-2 btn btn-outline-primary">button</button>					
+						  <button class="ml-2 btn btn-outline-primary">button</button>					
+
+					    </form>
 					</div>
 					<div id="databaseHomeDiv">
 						<div class="text-center">
 							<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
 							<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
-							<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>					
+							<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>	
+							<button class="m-3 btn btn-outline-primary btn-lg" id="starlinkNavItem">Starlink Sats</button><br>					
 						</div>
 						<div class="text-center mt-5">
 							<h3 class="mb-3">Next Launch</h3>
-							<p>ARABSAT</p>
-							<p>Nov 20</p>
+							<div id="nextLaunchHomeDiv">			
+							</div>
 						</div>
 						<div class="text-center mt-5">
 							<h3 class="mb-3">Last Launch</h3>
-							<p>Starlink</p>
-							<p>Nov 10</p>
+							<div id="lastLaunchHomeDiv">
+								
+							</div>
 						</div>
 					</div>
 	
