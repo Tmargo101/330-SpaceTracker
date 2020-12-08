@@ -102,7 +102,7 @@ let getFalconLaunches = () => {
 
 	let displayLaunchHistory = jsonString => {
 		let allLaunches = JSON.parse(jsonString);
-		let headerColumns = ['Launch Name', 'Success', 'Launch Details', 'Booster', 'Booster Flights', 'Recovered', 'Launch Site', 'Rocket Type'];
+		let headerColumns = ['Launch Name', 'Launch Details', 'Booster'];
 		table.drawDatabaseTable(headerColumns);
 		for (let launch of allLaunches) {
 			table.drawDatabaseRow(
