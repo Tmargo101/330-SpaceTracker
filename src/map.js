@@ -154,8 +154,7 @@ let addLandingLocation = (launch, className) => {
 	element.className = className;
 	
 	let launchSite = launch.launch_site.site_id;
-	console.log(launchSite);
-	switch (launchSite) {
+		switch (launchSite) {
 		case "kwajalein_atoll":
 			//9.048234464818664, 167.74327860315398
 			latitude = 9.048234464818664;

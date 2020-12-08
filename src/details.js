@@ -14,8 +14,50 @@ let drawDetailsView = (launchNumber) => {
 		let launch = JSON.parse(jsonString);
 		let thisDetailsView = `
 		<div class="container mt-5 text-center" id="thisDetailsView">
-			<h1 class=''>${launch.mission_name}</h1>
-			<img src=${launch.links.mission_patch} style="height: 300px;"></img>
+			<div class="row">
+				<div class="col-6">
+					<h1 class=''>${launch.mission_name}</h1>
+				</div>
+				<div class="col-6">
+					<img src=${launch.links.mission_patch} style="height: 175px;"></img>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col-6">
+					<h5>Launched in</h5>
+					<p>${launch.launch_year}</p>
+					<hr>
+					<h5>Rocket Type</h5>
+					<p>${launch.rocket.rocket_type}</p>
+					<hr>
+					<div class="row">
+						<div class="col-6">
+							<h5>Payload</h5>
+							<p>${launch.rocket.second_stage.payloads[0].payload_id}</p>
+						</div>
+						<div class="col-6">
+							<h5>Customer</h5>
+							<p>${launch.rocket.second_stage.payloads[0].customers[0]}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-6">
+					<h5>Details</h5>
+					<p>${launch.details}</p>
+				</div>
+			</div>
+			<div class="row mt-2 justify-content-center">
+				<div class="col-6">
+					<h4>Launch Video</h4>
+				</div>
+			</div>
+			<div class="row mt-1 justify-content-center">
+				<div class="col-6">
+					<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${launch.links.youtube_id}" frameborder="0"></iframe>
+				</div>
+			</div>
+			
+			
 		</div>
 		`;
 		
