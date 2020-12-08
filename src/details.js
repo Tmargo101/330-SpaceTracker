@@ -73,26 +73,26 @@ let drawDetailsView = (launchNumber) => {
 
 let drawBreadcrumbs = () => {
 	databaseBreadcrumb.innerHTML = `
-	<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
+	<li class="breadcrumb-item">Home</li>
 	<li class="breadcrumb-item"><a href="#" id="databaseBackButton">Launches</a></li>
 	<li class="breadcrumb-item active" aria-current="page">Details</li>
 	`;
 	
-	databaseHomeButton.onclick = () => {
-
-		databaseBreadcrumb.innerHTML = `
-		<li class="breadcrumb-item active" aria-current="page">Home</li>
-		`;
-		utilities.hideDiv("databaseDetailsView")
-		utilities.hideDiv("databaseDiv");
-		utilities.showDiv("databaseHomeDiv");
-		map.flyToDefault();
-
-	};
+// 	databaseHomeButton.onclick = () => {
+// 
+// 		databaseBreadcrumb.innerHTML = `
+// 		<li class="breadcrumb-item active" aria-current="page">Home</li>
+// 		`;
+// 		utilities.hideDiv("databaseDetailsView")
+// 		utilities.hideDiv("databaseDiv");
+// 		utilities.showDiv("databaseHomeDiv");
+// 		map.flyToDefault();
+// 
+// 	};
 	
 	databaseBackButton.onclick = () => {
 		databaseBreadcrumb.innerHTML = `
-		<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
+		<li class="breadcrumb-item">Home</li>
 		<li class="breadcrumb-item active" aria-current="page">Launches</li>
 		`;
 		utilities.hideDiv("databaseDetailsView");		
@@ -101,17 +101,17 @@ let drawBreadcrumbs = () => {
 		utilities.showDiv("databaseDiv");
 		map.flyToDefault();
 
-		databaseHomeButton.onclick = () => {
-		
-			databaseBreadcrumb.innerHTML = `
-			<li class="breadcrumb-item active" aria-current="page">Home</li>
-			`;
-			utilities.hideDiv("databaseDetailsView")
-			utilities.hideDiv("databaseDiv");
-			utilities.showDiv("databaseHomeDiv");
-			map.flyToDefault();
-
-		};
+// 		databaseHomeButton.onclick = () => {
+// 		
+// 			databaseBreadcrumb.innerHTML = `
+// 			<li class="breadcrumb-item active" aria-current="page">Home</li>
+// 			`;
+// 			utilities.hideDiv("databaseDetailsView")
+// 			utilities.hideDiv("databaseDiv");
+// 			utilities.showDiv("databaseHomeDiv");
+// 			map.flyToDefault();
+// 
+// 		};
 	};
 
 }

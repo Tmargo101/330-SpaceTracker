@@ -1,4 +1,8 @@
+import * as ajax from './ajax.js';
+
 let map;
+let sats;
+let satsVisible = true;
 
 let launchLocations = {
 	kwajalein_atoll: 0,
@@ -135,7 +139,7 @@ let addLaunchLocation = (launch, className, flyToLocation = false) => {
 	
 	new mapboxgl.Marker(element)
 		.setLngLat([longitude, latitude])
-		.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<h3>' + launchSite_friendly + '</h3><p>Launched on: ' + 'GET LAUNCH DATE' + '</p>'))
+		.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<h3>' + launchSite_friendly + '</h3><p>Rocket: ' + launch.rocket.rocket_name + '</p>'))
 		.addTo(map);
 		
 	if (flyToLocation == true) {
@@ -186,7 +190,7 @@ let addLandingLocation = (launch, className) => {
 	
 	new mapboxgl.Marker(element)
 		.setLngLat([longitude, latitude])
-		.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<h3>' + launchSite_friendly + '</h3><p>Launched on: ' + 'GET LAUNCH DATE' + '</p>'))
+		.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<h3>' + launchSite_friendly + '</h3><p>Rocket: ' + launch.rocket.rocket_name + '</p>'))
 		.addTo(map);
 
 }
@@ -216,9 +220,40 @@ let resetPois = () => {
 	launchLocations.ksc_lc_39a = 0;
 	launchLocations.ccafs_slc_40 = 0;
 	launchLocations.vafb_slc_4e = 0;
-	$('.poi').remove();
+	//$('.poi').remove();
 	$('.launch').remove();
 }
+
+let toggleSats = () => {
+	if (satsVisible == false) {
+		document.querySelectorAll('.poi').forEach(function(sat) {
+			sat.style.display = "none";
+		});
+	} else {
+		document.querySelectorAll('.poi').forEach(function(sat) {
+			sat.style.display = "";
+		});
+		
+	}
+	satsVisible = !satsVisible
+};
+
+let loadSats = () => {
+	const url = "https://api.spacexdata.com/v4/starlink";
+	let poiLoaded = jsonString => {
+		sats = JSON.parse(jsonString);
+		// console.log(sats);
+		drawSats(sats);
+	};
+	ajax.getData(url, poiLoaded);
+};
+
+let drawSats = (inSats) => {
+	for (let starlink of inSats) {
+		addMarker(starlink, 'poi');
+	}
+}
+
 
 
 
@@ -233,5 +268,9 @@ export {
 	addGeneralLaunchLocation,
 	countLaunchLocations,
 	launchLocations,
-	resetPois
+	resetPois,
+	toggleSats,
+	sats,
+	loadSats,
+	drawSats
 };

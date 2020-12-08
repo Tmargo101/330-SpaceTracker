@@ -25,19 +25,19 @@ let drawDatabaseTable = (inColumns) => {
 	`;
 	databaseTableDiv.innerHTML = thisTable;
 	databaseBreadcrumb.innerHTML = `
-		<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
+		<li class="breadcrumb-item">Home</li>
 		<li class="breadcrumb-item active" aria-current="page">Launches</li>
 		`;
-	databaseHomeButton.onclick = () => {
-		map.resetPois();
-		databaseBreadcrumb.innerHTML = `
-		<li class="breadcrumb-item active" aria-current="page">Home</li>
-		`;
-		utilities.hideDiv("databaseDetailsView")
-		utilities.hideDiv("databaseDiv");
-		
-		utilities.showDiv("databaseHomeDiv");
-	}
+	// databaseHomeButton.onclick = () => {
+	// 	map.resetPois();
+	// 	databaseBreadcrumb.innerHTML = `
+	// 	<li class="breadcrumb-item active" aria-current="page">Home</li>
+	// 	`;
+	// 	utilities.hideDiv("databaseDetailsView")
+	// 	utilities.hideDiv("databaseDiv");
+	// 	
+	// 	utilities.showDiv("databaseHomeDiv");
+	// }
 };
 
 let drawDatabaseRow = (inColumns, thisLaunch = {}, inClass = 'table-light') => {

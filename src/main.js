@@ -5,7 +5,7 @@ import * as table from './table.js';
 import * as storage from './storage.js';
 import * as details from './details.js';
 
-let sats;
+
 
 let endpoints = {
 	getAllStarlinkSats: 'https://api.spacexdata.com/v4/starlink',
@@ -85,14 +85,20 @@ let setupUI = () => {
 
 
 	starlinkNavItem.onclick = () => {
-		if (!sats) {
-			loadSats();
+		if (!map.sats) {
+			map.loadSats();
 		}
+		
+		map.toggleSats();
 	};
 	
 	falconFlights.onclick = () => {
 		getFalconLaunches();
-	}
+	};
+	
+	utilities.hideDiv("databaseHomeDiv");
+	utilities.showDiv("databaseDiv");
+	getFalconLaunches();
 	
 };
 
@@ -244,18 +250,5 @@ let getLastLaunch = () => {
 	ajax.getData(endpoints.getLastLaunch, callback);
 };
 
-let loadSats = () => {
-	const url = endpoints.getAllStarlinkSats;
-	let poiLoaded = jsonString => {
-		sats = JSON.parse(jsonString);
-		// console.log(sats);
-
-		for (let starlink of sats) {
-			map.addMarker(starlink, 'poi');
-		}
-	};
-
-	ajax.getData(url, poiLoaded);
-};
 
 export { init };
