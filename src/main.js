@@ -25,7 +25,10 @@ let init = () => {
 };
 
 let setupUI = () => {
-	
+	if (localStorage.getItem(storage.currentState.prefix) == null) {
+		storage.saveState();
+		console.log("Reset");
+	}
 	numberOfReflightsSelect.disabled = true;
 	
 	// Save state handlers

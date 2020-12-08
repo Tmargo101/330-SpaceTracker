@@ -48,12 +48,13 @@ let setAllOptions = () => {
 		numberOfReflightsSelect.value = currentState.numberOfReflightsSelect;
 	}
 	
+	launchLocationSelect.value = currentState.launchLocationSelect;
+	rocketSelect.value = currentState.rocketSelect;
+
 	if (currentState.launchLocationSelect != "all") {
-		launchLocationSelect.value = currentState.launchLocationSelect;
 	}
 	
 	if (currentState.rocketSelect != "all") {
-		rocketSelect.value = currentState.rocketSelect;
 	}
 
 	
