@@ -9,7 +9,7 @@ let sats;
 
 let endpoints = {
 	getAllStarlinkSats: 'https://api.spacexdata.com/v4/starlink',
-	getAllPastLaunches: 'https://api.spacexdata.com/v3/launches/past',
+	getAllPastLaunches: 'https://api.spacexdata.com/v3/launches',
 	getOneLaunch: 'https://api.spacexdata.com/v3/launches/',
 	getAllCores: 'https://api.spacexdata.com/v3/cores',
 	getLastLaunch: 'https://api.spacexdata.com/v3/launches/latest',
@@ -17,19 +17,67 @@ let endpoints = {
 };
 
 let init = () => {
-	storage.getSavedState();
 	map.initMap();
 	setupUI();
+	storage.setAllOptions();
 	getLastLaunch();
 	getNextLaunch();
 };
 
 let setupUI = () => {
+	
+	numberOfReflightsSelect.disabled = true;
+	
 	// Save state handlers
-	searchField.onkeyup = e => {
+	searchField.onkeyup = () => {
 		storage.saveState();
-		searchTable();
+		table.searchTable();
 	};
+	
+	launchNameRadio.onclick = () => {
+		storage.saveState();
+		table.searchTable();
+	};
+	
+	boosterRadio.onclick = () => {
+		storage.saveState();
+		table.searchTable();
+	};
+	
+	landedCheckbox.onclick = () => {
+		storage.saveState();
+		table.searchTable();
+	};
+	
+	reflownCheckbox.onclick = () => {
+		if (reflownCheckbox.checked) {
+			numberOfReflightsSelect.disabled = false;
+		} else if (!reflownCheckbox.checked) {
+			numberOfReflightsSelect.disabled = true;
+		}
+		storage.saveState();
+		table.searchTable();
+	};
+	
+	numberOfReflightsSelect.onchange = () => {
+		if (!numberOfReflightsSelect.disabled) {
+			storage.saveState();
+			table.searchTable();
+		}
+	};
+	
+	launchLocationSelect.onchange = () => {
+		storage.saveState();
+		table.searchTable();
+	}
+	
+	
+	
+	resetButton.onclick = () => {
+		storage.resetAllOptions();
+	};
+	
+
 
 	starlinkNavItem.onclick = () => {
 		if (!sats) {
@@ -49,13 +97,6 @@ let setupUI = () => {
 		getFalconHeavyLaunches();
 	};
 	
-	launchNameRadio.onclick = () => {
-		alert("Wroked");
-	}
-	
-	boosterRadio.onchange = () => {
-			
-	}
 };
 
 let getFalcon1Launches = () => {
@@ -91,7 +132,7 @@ let getFalcon9Launches = () => {
 
 	let displayLaunchHistory = jsonString => {
 		let allLaunches = JSON.parse(jsonString);
-		let headerColumns = ['Launch Name', 'Success', 'Launch Details', 'Booster', 'Booster Flights', 'Recovered'];
+		let headerColumns = ['Launch Name', 'Success', 'Launch Details', 'Booster', 'Booster Flights', 'Recovered', 'Launch Site'];
 		table.drawDatabaseTable(headerColumns);
 		for (let launch of allLaunches) {
 			table.drawDatabaseRow(
@@ -102,6 +143,7 @@ let getFalcon9Launches = () => {
 					launch.rocket.first_stage.cores[0].core_serial,
 					launch.rocket.first_stage.cores[0].flight,
 					launch.rocket.first_stage.cores[0].land_success,
+					launch.launch_site.site_id,
 					//`<a href="#">${launch.rocket.first_stage.cores[0].core_serial}</a>`,
 				],
 				launch
@@ -165,30 +207,6 @@ let getLastLaunch = () => {
 	};
 	ajax.getData(endpoints.getLastLaunch, callback);
 };
-
-function searchTable() {
-	// Declare variables
-	var input, filter, table, rows, searchTerm, i, searchText;
-	input = document.querySelector('#searchField');
-	filter = input.value.toUpperCase();
-	table = document.querySelector('#currentDatabaseDivTable');
-	rows = table.querySelectorAll('tr');
-	
-	// if (storage.)
-
-	// Loop through all table rows, and hide those who don't match the search query
-	for (i = 0; i < rows.length; i++) {
-		searchTerm = rows[i].querySelectorAll('td')[0];
-		if (searchTerm) {
-			searchText = searchTerm.textContent || searchTerm.innerText;
-			if (searchText.toUpperCase().indexOf(filter) > -1) {
-				rows[i].style.display = '';
-			} else {
-				rows[i].style.display = 'none';
-			}
-		}
-	}
-}
 
 let loadSats = () => {
 	const url = endpoints.getAllStarlinkSats;
