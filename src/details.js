@@ -52,8 +52,8 @@ let drawDetailsView = (launchNumber) => {
 				</div>
 			</div>
 			<div class="row mt-1 justify-content-center">
-				<div class="col-6">
-					<iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${launch.links.youtube_id}" frameborder="0"></iframe>
+				<div class="col-xl-6 col-lg-9 embed-responsive embed-responsive-16by9">
+					<iframe class="embed-responsive-item" id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/${launch.links.youtube_id}" frameborder="0"></iframe>
 				</div>
 			</div>
 			
