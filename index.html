@@ -56,22 +56,9 @@
 					<div id="databaseHomeDiv">
 						<div class="text-center">
 							<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falconFlights">Falcon Launches</button><br>
-							<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
-							<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
-							<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>	
-							<button class="m-3 btn btn-outline-primary btn-lg" id="starlinkNavItem">Starlink Sats</button><br>					
+							<button class="m-3 btn btn-outline-primary btn-lg" id="starlinkNavItem">Starlink Sats</button><br>	
 						</div>
-						<div class="text-center mt-5">
-							<h3 class="mb-3">Next Launch</h3>
-							<div id="nextLaunchHomeDiv">			
-							</div>
-						</div>
-						<div class="text-center mt-5">
-							<h3 class="mb-3">Last Launch</h3>
-							<div id="lastLaunchHomeDiv">
-								
-							</div>
-						</div>
+						
 					</div>
 					
 					<div id="databaseDiv" style="display: none;">
@@ -81,7 +68,7 @@
 									Rocket Type:
 								</label>
 								<select class="custom-select mr-2" name="rocketSelect" id="rocketSelect">
-									<option value="all" selected>All</option>
+									<option id="allLocations" value="all" selected>All</option>
 									<option value="falcon1"> Falcon 1</option>
 									<option value="falcon9">Falcon 9</option>
 									<option value="falconheavy">Falcon Heavy</option>
@@ -164,6 +151,20 @@
 				<section class="col-lg-6" id="starlinkMapDiv">
 					<h2 class="text-center">Map</h2>
 					<div id="map"></div>
+					<div class="row">
+						<div class="text-center mt-5 col-6">
+							<h3 class="mb-3">Next Launch</h3>
+							<div id="nextLaunchHomeDiv">			
+							</div>
+						</div>
+						<div class="text-center mt-5 col-6">
+							<h3 class="mb-3">Last Launch</h3>
+							<div id="lastLaunchHomeDiv">
+								
+							</div>
+						</div>
+	
+					</div>
 				</section>
 			</div>
 			<footer class="row h-10">

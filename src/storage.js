@@ -19,8 +19,6 @@ let getSavedState = () => {
 	currentState.numberOfReflightsSelect = localStorage.getItem(currentState.prefix+"numberOfReflightsSelect");
 	currentState.launchLocationSelect = localStorage.getItem(currentState.prefix+"launchLocationSelect");
 	currentState.rocketSelect = localStorage.getItem(currentState.prefix+"rocketSelect");
-	console.log(currentState);
-
 };
 
 let setAllOptions = () => {
@@ -93,11 +91,12 @@ let resetAllOptions = () => {
 	boosterRadio.checked = false;
 	landedCheckbox.checked = false;
 	reflownCheckbox.checked = false;
-	numberOfReflightsSelect.selectedIndex = 0;
+	numberOfReflightsSelect.selectedIndex = "0";
 	numberOfReflightsSelect.disabled = true;
-	launchLocationSelect.selectedIndex = 0;
-	rocketSelect.selectedIndex = 0;
-	console.log()
+	launchLocationSelect.selectedIndex = "0";
+	// allLocations.selected = true;
+	rocketSelect.selectedIndex = "0";
+	saveState();
 	table.searchTable();
 }
 

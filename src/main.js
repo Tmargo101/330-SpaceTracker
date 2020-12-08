@@ -89,18 +89,6 @@ let setupUI = () => {
 			loadSats();
 		}
 	};
-
-	falcon1HistoryNav.onclick = () => {
-		getFalcon1Launches();
-	};
-
-	falcon9HistoryNav.onclick = () => {
-		getFalcon9Launches();
-	};
-
-	falconHeavyHistoryNav.onclick = () => {
-		getFalconHeavyLaunches();
-	};
 	
 	falconFlights.onclick = () => {
 		getFalconLaunches();

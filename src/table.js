@@ -5,7 +5,7 @@ import * as storage from './storage.js';
 
 let drawDatabaseTable = (inColumns) => {
 	let thisTable = `
-	<table id="currentDatabaseDivTable" class="table table-responsive" style="overflow-y:scroll; max-height: 60vh;">
+	<table id="currentDatabaseDivTable" class="table table-responsive" style="overflow-y:scroll; max-height: 50vh;">
 		<thead class="thead-dark">
 			<tr>`;
 
@@ -139,12 +139,10 @@ let filterTable = (searchColumn, invertSelection, termsToFilterBy) => {
 			for (let y = 0; y < termsToFilterBy.length; y++) {
 				if (invertSelection == true) {
 					if (searchText == termsToFilterBy[y]) {
-						console.log("true")
 						rows[i].style.display = 'none';
 					}
 				} else if (invertSelection == false) {
 					if (searchText != termsToFilterBy[y]) {
-						console.log("false")
 						rows[i].style.display = 'none';
 					}
 				}
