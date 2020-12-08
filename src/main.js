@@ -174,7 +174,7 @@ function searchTable() {
 	table = document.querySelector('#currentDatabaseDivTable');
 	rows = table.querySelectorAll('tr');
 	
-	if (storage.)
+	// if (storage.)
 
 	// Loop through all table rows, and hide those who don't match the search query
 	for (i = 0; i < rows.length; i++) {
