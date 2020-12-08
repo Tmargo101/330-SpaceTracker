@@ -22,7 +22,7 @@ let drawDatabaseTable = (inColumns) => {
 	</table>
 	</div>
 	`;
-	databaseDiv.innerHTML = thisTable;
+	databaseTableDiv.innerHTML = thisTable;
 	databaseBreadcrumb.innerHTML = `
 		<li class="breadcrumb-item"><a href="#" id="databaseHomeButton">Home</a></li>
 		<li class="breadcrumb-item active" aria-current="page">Launches</li>

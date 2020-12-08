@@ -12,15 +12,15 @@ let initMap = () => {
 
 	map = new mapboxgl.Map({
 		container: 'map',
-		style: 'mapbox://styles/mapbox/light-v10',
+		style: 'mapbox://styles/mapbox/outdoors-v11',
 		center: [-120.67454147338866, 30.08484339838443],
 		zoom: 2,
 	});
 
 };
 
-let flyTo = (center = [0, 0]) => {
-	map.flyTo({ center: center });
+let flyTo = (center, inZoom = 10) => {
+	map.flyTo({center: center, zoom: inZoom});
 };
 
 let setZoomLevel = (value = 0) => {
@@ -31,6 +31,11 @@ let setPitchAndBearing = (pitch = 0, bearing = 0) => {
 	map.setPitch(pitch);
 	map.setBearing(bearing);
 };
+
+let flyToDefault = () => {
+	let lngLat = [-120.67454147338866, 30.08484339838443];
+	flyTo(lngLat, 2);
+}
 
 let addMarker = (thisSat, className) => {
 	let element = document.createElement('div');
@@ -52,12 +57,12 @@ let addGeneralLaunchLocation = (name, numberOfLaunches, className) => {
 	element.className = className;
 	
 	let launchSite = name;
-	console.log(launchSite);
 	switch (launchSite) {
 		case "kwajalein_atoll":
 			//9.048234464818664, 167.74327860315398
+			//9.048138766529632, 167.74286277259336
 			latitude = 9.048234464818664;
-			longitude = -167.74327860315398;
+			longitude = 167.74327860315398;
 			launchSite_friendly = "Kwajalein Atoll";
 			break;
 		case "ksc_lc_39a":
@@ -84,43 +89,46 @@ let addGeneralLaunchLocation = (name, numberOfLaunches, className) => {
 		.setLngLat([longitude, latitude])
 		.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`<h3>${launchSite_friendly}</h3><p>Number of Launches from here: ${numberOfLaunches}</p>`))
 		.addTo(map);
-
+	
 }
 
 
-let addLaunchLocation = (launch, className) => {
-	let latitude, longitude;
+let addLaunchLocation = (launch, className, flyToLocation = false) => {
+	let latitude, longitude, zoom;
 	let launchSite_friendly;
 
 	let element = document.createElement('div');
 	element.className = className;
 	
 	let launchSite = launch.launch_site.site_id;
-	console.log(launchSite);
 	switch (launchSite) {
 		case "kwajalein_atoll":
 			//9.048234464818664, 167.74327860315398
 			latitude = 9.048234464818664;
-			longitude = -167.74327860315398;
+			longitude = 167.74327860315398;
+			zoom = 14;
 			launchSite_friendly = "Kwajalein Atoll";
 			break;
 		case "ksc_lc_39a":
 			//28.608724142882494, -80.60423669166772
 			latitude = 28.608724142882494;
 			longitude = -80.60423669166772;
+			zoom = 11;
 			launchSite_friendly = "Kennedy Space Center - LC-39A"
 			break;
 		case "ccafs_slc_40":
 			//28.562245429305698, -80.57729210229223
 			latitude = 28.562245429305698;
 			longitude = -80.57729210229223;
+			zoom = 11;
 			launchSite_friendly = "Cape Caneveral Air Force Station - SLC-40"
 			break;
 		case "vafb_slc_4e":
 			// 34.6321279150527, -120.61065970218115
 			latitude = 34.6321279150527;
 			longitude = -120.61065970218115;
-			launchSite_friendly = "Vandenburg - SLC-4"
+			zoom = 13;
+			launchSite_friendly = "Vandenburg - SLC-4";
 			break;
 	}
 	
@@ -129,6 +137,12 @@ let addLaunchLocation = (launch, className) => {
 		.setLngLat([longitude, latitude])
 		.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML('<h3>' + launchSite_friendly + '</h3><p>Launched on: ' + 'GET LAUNCH DATE' + '</p>'))
 		.addTo(map);
+		
+	if (flyToLocation == true) {
+		let lngLat = [longitude, latitude];		
+		flyTo(lngLat, zoom);
+	}
+
 
 }
 
@@ -212,6 +226,7 @@ let resetPois = () => {
 export {
 	initMap,
 	flyTo,
+	flyToDefault,
 	setZoomLevel,
 	setPitchAndBearing,
 	addMarker,
