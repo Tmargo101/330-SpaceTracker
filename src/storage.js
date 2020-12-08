@@ -7,7 +7,8 @@ let currentState = {
 	landedCheckbox: null,
 	reflownCheckbox: null,
 	numberOfReflightsSelect: null,
-	launchLocation: "all"
+	launchLocation: "all",
+	rocketSelect: "all"
 };
 
 let getSavedState = () => {
@@ -17,6 +18,7 @@ let getSavedState = () => {
 	currentState.reflownCheckbox = localStorage.getItem(currentState.prefix+"reflownCheckbox");
 	currentState.numberOfReflightsSelect = localStorage.getItem(currentState.prefix+"numberOfReflightsSelect");
 	currentState.launchLocationSelect = localStorage.getItem(currentState.prefix+"launchLocationSelect");
+	currentState.rocketSelect = localStorage.getItem(currentState.prefix+"rocketSelect");
 	console.log(currentState);
 
 };
@@ -51,6 +53,10 @@ let setAllOptions = () => {
 	if (currentState.launchLocationSelect != "all") {
 		launchLocationSelect.value = currentState.launchLocationSelect;
 	}
+	
+	if (currentState.rocketSelect != "all") {
+		rocketSelect.value = currentState.rocketSelect;
+	}
 
 	
 
@@ -68,10 +74,9 @@ let saveState = () => {
 	
 	localStorage.setItem(currentState.prefix+"landedCheckbox", landedCheckbox.checked);
 	localStorage.setItem(currentState.prefix+"reflownCheckbox", reflownCheckbox.checked);
-	
 	localStorage.setItem(currentState.prefix+"numberOfReflightsSelect", numberOfReflightsSelect.value);
-	localStorage.setItem(currentState.prefix+"launchLocationSelect", launchLocationSelect.value)
-
+	localStorage.setItem(currentState.prefix+"launchLocationSelect", launchLocationSelect.value);
+	localStorage.setItem(currentState.prefix+"rocketSelect", rocketSelect.value);
 	getSavedState();
 	
 	
@@ -81,7 +86,8 @@ let resetAllOptions = () => {
 	localStorage.clear();
 	localStorage.setItem("prefix", "txm5483-");
 	localStorage.setItem("searchBy", "launchName");
-	localStorage.setItem("launchLocation", "all")
+	localStorage.setItem("launchLocation", "all");
+	localStorage.setItem("rocketSelect", "all");
 	searchField.value = "";
 	launchNameRadio.checked = true;
 	boosterRadio.checked = false;
@@ -90,6 +96,8 @@ let resetAllOptions = () => {
 	numberOfReflightsSelect.selectedIndex = 0;
 	numberOfReflightsSelect.disabled = true;
 	launchLocationSelect.selectedIndex = 0;
+	rocketSelect.selectedIndex = 0;
+	console.log()
 	table.searchTable();
 }
 

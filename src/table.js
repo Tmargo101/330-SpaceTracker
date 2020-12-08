@@ -99,6 +99,10 @@ let searchTable = () => {
 		}
 	}
 	
+	if (storage.currentState.rocketSelect != "all") {
+		filterTable(7, false, [storage.currentState.rocketSelect]);
+	}
+	
 	if (storage.currentState.landedCheckbox == "true") {
 		filterTable(5, true, ["false", "No Information Provided"]);
 	}
@@ -152,7 +156,7 @@ let filterTable = (searchColumn, invertSelection, termsToFilterBy) => {
 }
 
 let countResults = () => {
-	let results = 0
+	let results = -1;
 	let thisTable = document.querySelector('#currentDatabaseDivTable');
 	let rows = thisTable.querySelectorAll('tr');
 	
@@ -162,7 +166,13 @@ let countResults = () => {
 			results += 1;
 		}
 	}
-	resultsAlert.innerHTML = `${results} Results.`;
+	if (results > 1) {
+		resultsAlert.innerHTML = `${results} Results.`;
+	} else if (results == 1) { 
+		resultsAlert.innerHTML = `${results} Result.`;
+	} else {
+		resultsAlert.innerHTML = `No Results.`;
+	}
 
 };
 

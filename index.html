@@ -55,6 +55,7 @@
 
 					<div id="databaseHomeDiv">
 						<div class="text-center">
+							<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falconFlights">Falcon Launches</button><br>
 							<button class="mt-5 mb-3 btn btn-outline-primary btn-lg" id="falcon1HistoryNav">Falcon 1 Launches</button><br>
 							<button class="m-3 btn btn-outline-primary btn-lg" id="falcon9HistoryNav">Falcon 9 Launches</button><br>
 							<button class="m-3 btn btn-outline-primary btn-lg" id="falconHeavyHistoryNav">Falcon Heavy Launches</button><br>	
@@ -75,6 +76,18 @@
 					
 					<div id="databaseDiv" style="display: none;">
 						<div class='mb-2 black' id="databaseControls">
+							<div class=" mb-5 form text-center">
+								<label class="form-check-label mr-2" for="rocketSelect">
+									Rocket Type:
+								</label>
+								<select class="custom-select mr-2" name="rocketSelect" id="rocketSelect">
+									<option value="all" selected>All</option>
+									<option value="falcon1"> Falcon 1</option>
+									<option value="falcon9">Falcon 9</option>
+									<option value="falconheavy">Falcon Heavy</option>
+								</select>	
+
+							</div>
 							<div class="form-inline text-center">
 								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchField">
 								<label class="form-check-label mr-2" for="searchByRadios">

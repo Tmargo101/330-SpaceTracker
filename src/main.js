@@ -71,6 +71,11 @@ let setupUI = () => {
 		table.searchTable();
 	}
 	
+	rocketSelect.onchange = () => {
+		storage.saveState();
+		table.searchTable();
+	}
+	
 	
 	
 	resetButton.onclick = () => {
@@ -97,7 +102,50 @@ let setupUI = () => {
 		getFalconHeavyLaunches();
 	};
 	
+	falconFlights.onclick = () => {
+		getFalconLaunches();
+	}
+	
 };
+
+let getFalconLaunches = () => {
+	utilities.displayLoading('#databaseTableDiv');
+	map.resetPois();
+
+	let displayLaunchHistory = jsonString => {
+		let allLaunches = JSON.parse(jsonString);
+		let headerColumns = ['Launch Name', 'Success', 'Launch Details', 'Booster', 'Booster Flights', 'Recovered', 'Launch Site', 'Rocket Type'];
+		table.drawDatabaseTable(headerColumns);
+		for (let launch of allLaunches) {
+			table.drawDatabaseRow(
+				[
+					`<a href="#" class="getFlightDetails" data-value="${launch.flight_number}">${launch.mission_name}</a>`,
+					launch.launch_success,
+					launch.details,
+					launch.rocket.first_stage.cores[0].core_serial,
+					launch.rocket.first_stage.cores[0].flight,
+					launch.rocket.first_stage.cores[0].land_success,
+					launch.launch_site.site_id,
+					launch.rocket.rocket_id
+				],
+				launch
+			);
+			map.countLaunchLocations(launch);
+		}
+		for (let [location, launchNumber] of Object.entries(map.launchLocations)) {
+			if (launchNumber > 0) {
+				map.addGeneralLaunchLocation(location, launchNumber, 'launch');
+			}
+		}
+		
+
+		table.addLinksToRow();
+	};
+	utilities.hideDiv('databaseHomeDiv');
+	utilities.showDiv('databaseDiv');
+	ajax.getData(endpoints.getAllPastLaunches, displayLaunchHistory);
+};
+
 
 let getFalcon1Launches = () => {
 	utilities.displayLoading('#databaseTableDiv');
